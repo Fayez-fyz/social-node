@@ -11,7 +11,7 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   path: "/socket.io",
   cors: {
-    origin: "http://localhost:3000",
+    origin: [process.env.CLIENT_URL],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-type"],
   },
@@ -27,7 +27,7 @@ mongoose
   .catch((err) => console.log("DB CONNECTION ERROR", err));
 
 //middlewares
-app.use(express.json({ limit: "6mb" }));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
